@@ -1,0 +1,93 @@
+CREATE DATABASE school;
+USE school;
+
+
+CREATE TABLE Teachers
+(
+  TeacherID INT NOT NULL,
+  Email_ VARCHAR(50) NOT NULL,
+  Phone VARCHAR(50) NOT NULL,
+  PRIMARY KEY (TeacherID)
+);
+
+CREATE TABLE TeacherDetails
+(
+  DetailID INT NOT NULL,
+  Subject VARCHAR(50) NOT NULL,
+  HireDate DATE NOT NULL,
+  TeacherID INT NOT NULL,
+  PRIMARY KEY (DetailID),
+  FOREIGN KEY (TeacherID) REFERENCES Teachers(TeacherID)
+);
+
+CREATE TABLE Courses
+(
+  CourseID INT NOT NULL,
+  CourseName VARCHAR(50) NOT NULL,
+  CourseCode VARCHAR(50) NOT NULL,
+  TeacherID INT NOT NULL,
+  PRIMARY KEY (CourseID),
+  FOREIGN KEY (TeacherID) REFERENCES Teachers(TeacherID)
+);
+
+CREATE TABLE Students
+(
+  StudentID_ INT NOT NULL,
+  Name VARCHAR(50) NOT NULL,
+  Email VARCHAR(50) NOT NULL,
+  Phone VARCHAR(50) NOT NULL,
+  EnrollmentDate DATE NOT NULL,
+  PRIMARY KEY (StudentID_)
+);
+
+CREATE TABLE Student_Courses
+(
+  CourseID INT NOT NULL,
+  StudentID_ INT NOT NULL,
+  FOREIGN KEY (CourseID) REFERENCES Courses(CourseID),
+  FOREIGN KEY (StudentID_) REFERENCES Students(StudentID_)
+);
+
+
+INSERT INTO Teachers (TeacherID, Email_, Phone) VALUES
+(1, 'teacher1@example.com', '1234567890'),
+(2, 'teacher2@example.com', '1234567891'),
+(3, 'teacher3@example.com', '1234567892'),
+(4, 'teacher4@example.com', '1234567893'),
+(5, 'teacher5@example.com', '1234567894');
+
+
+INSERT INTO TeacherDetails (DetailID, Subject, HireDate, TeacherID) VALUES
+(1, 'Mathematics', '2020-09-01', 1),
+(2, 'Physics', '2019-08-15', 2),
+(3, 'Chemistry', '2021-06-10', 3),
+(4, 'Biology', '2018-07-20', 4),
+(5, 'English', '2022-01-05', 5);
+
+
+INSERT INTO Courses (CourseID, CourseName, CourseCode, TeacherID) VALUES
+(1, 'Algebra', 'MATH101', 1),
+(2, 'Mechanics', 'PHY201', 2),
+(3, 'Organic Chemistry', 'CHEM301', 3),
+(4, 'Genetics', 'BIO401', 4),
+(5, 'Literature', 'ENG501', 5);
+
+INSERT INTO Students (StudentID_, Name, Email, Phone, EnrollmentDate) VALUES
+(1, 'Alice Johnson', 'alice@example.com', '9876543210', '2023-09-01'),
+(2, 'Bob Smith', 'bob@example.com', '9876543211', '2023-09-02'),
+(3, 'Charlie Brown', 'charlie@example.com', '9876543212', '2023-09-03'),
+(4, 'David Williams', 'david@example.com', '9876543213', '2023-09-04'),
+(5, 'Emma Davis', 'emma@example.com', '9876543214', '2023-09-05');
+
+
+INSERT INTO Student_Courses (CourseID, StudentID_) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5),
+(1, 2),
+(2, 3),
+(3, 4),
+(4, 5),
+(5, 1);
